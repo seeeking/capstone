@@ -23,11 +23,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-    	try {
-    		MysqlConnection connection = new MysqlConnection();
-    	} catch (Exception e) {
-    		System.out.println(e);
-    	}
+    	//SqlConnect con = new SqlConnect();
         SpringApplication.run(Application.class, args);
     }
     

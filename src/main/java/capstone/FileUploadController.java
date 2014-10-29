@@ -29,16 +29,20 @@ public class FileUploadController {
             	// convert counter to a 4 digit string
             	String id = String.format("%04d", counter.incrementAndGet());
             	String filename = "ID=" + id + "_" + name;
+            	String picpath = filename+".jpg";
+            	String txtpath = filename+" DESCRIPTION.txt";
                 byte[] bytes = file.getBytes();
                 // rename the file, adding ID
                 BufferedOutputStream stream = 
-                        new BufferedOutputStream(new FileOutputStream(new File(filename + ".jpg")));
+                        new BufferedOutputStream(new FileOutputStream(new File(picpath)));
                 stream.write(bytes);
                 stream.close();
-                PrintWriter toFile = new PrintWriter(filename+" DESCRIPTION.txt");
+                PrintWriter toFile = new PrintWriter(txtpath);
                 toFile.write(desc);
                 toFile.close();
-                
+                Pic picture = new Pic(id, filename, picpath, txtpath);
+                SqlConnect con = new SqlConnect();
+                con.insertPic(picture);
                 return "You successfully uploaded " + name + " into " + name + "-uploaded !";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();

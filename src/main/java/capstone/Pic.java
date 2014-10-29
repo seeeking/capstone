@@ -8,6 +8,13 @@ public class Pic {
 	private String picpath;
 	private String txtpath;
 	
+	Pic(String id, String name, String picpath, String txtpath) {
+		this.id = id;
+		this.name = name;
+		this.picpath = picpath;
+		this.txtpath = txtpath;
+	}
+	
 	public String getId() {
 		return id;
 	}
