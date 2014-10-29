@@ -31,6 +31,9 @@ public class FileUploadController {
             	String filename = "ID=" + id + "_" + name;
             	String picpath = filename+".jpg";
             	String txtpath = filename+" DESCRIPTION.txt";
+            	Pic picture = new Pic(id, name, picpath, txtpath);
+                SqlConnect con = new SqlConnect();
+                con.insertPic(picture);
                 byte[] bytes = file.getBytes();
                 // rename the file, adding ID
                 BufferedOutputStream stream = 
@@ -40,9 +43,6 @@ public class FileUploadController {
                 PrintWriter toFile = new PrintWriter(txtpath);
                 toFile.write(desc);
                 toFile.close();
-                Pic picture = new Pic(id, filename, picpath, txtpath);
-                SqlConnect con = new SqlConnect();
-                con.insertPic(picture);
                 return "You successfully uploaded " + name + " into " + name + "-uploaded !";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
